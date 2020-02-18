@@ -7,11 +7,14 @@
 
 #include "navy.h"
 
+int sig_count[13];
+
 void process_info(void)
 {
     my_printf("PID: %d\n", getpid());
     my_printf("PPID: %d\n", getppid());
     my_printf("PGID: %d\n", getpgid(getpid()));
+    sig_count[SIGUSR1];
 }
 
 void kill_it(int pid)
@@ -26,6 +29,7 @@ void get_pid(int sig, siginfo_t *siginfo, void *context)
     if (sig != SIGKILL) {
         my_printf("Signal %s received from\n", strsignal(sig));
     }
+    sig_count[sig]++;
     my_printf("%d\n", pid);
 }
 
@@ -40,7 +44,7 @@ void catch_sig(int sig)
 
 void who_sig_me(int ac, char **av)
 {
-    unsigned long int *list_of_signal = malloc(sizeof(unsigned long int) * (ac - 1));
+    unsigned long int list_of_signal[2] = {SIGUSR1, SIGUSR2};
     struct sigaction act;
 
     act.sa_sigaction = &get_pid;
