@@ -41,11 +41,15 @@ void catch_sig(int sig)
 void who_sig_me(int ac, char **av)
 {
     unsigned long int *list_of_signal = malloc(sizeof(unsigned long int) * (ac - 1));
+    struct sigaction act;
 
-    for (int i = 0; i < ac - 1; i++)
+    act.sa_sigaction = &get_pid;
+    act.sa_flags = SA_SIGINFO;
+    for (int i = 0; i < ac - 1; i++) {
         list_of_signal[i] = my_getnbr(av[i + 1]);
+        sigaction(list_of_signal[i], &act, NULL);
+    }
     for (int i = 0; i < ac - 1; i++)
-        signal(list_of_signal[i], catch_sig);
     while (1)
         usleep(1);
     //my_putstr("Unable to handle Killed signal");
