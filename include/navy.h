@@ -14,4 +14,7 @@
 #include <string.h>
 #include <ucontext.h>
 
+void print_playermap(int **player_tab);
+void print_ennemymap(int **player_tab);
+
 #endif
