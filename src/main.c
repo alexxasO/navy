@@ -19,29 +19,23 @@ void kill_it(int pid)
     kill(pid, SIGQUIT);
 }
 
-void catch_sig(int sig)
+void get_pid(int sig, siginfo_t *siginfo, void *context)
 {
-    struct sigaction *act = malloc(sizeof(*act));
-    struct sigaction *oldact = malloc(sizeof(*oldact));
-    siginfo_t *siginfo = malloc(sizeof(*siginfo));
-    ucontext_t *context = malloc(sizeof(*context));
+    int pid = siginfo->si_pid;
 
     if (sig != SIGKILL) {
-        printf("PREPLOUF\n");
         my_printf("Signal %s received from\n", strsignal(sig));
-        printf("AFTERPLOUF\n");
     }
-    printf("POSTPLOUF\n");
-    sigaction(sig, act, oldact);
-    printf("POSTPOSTPLOUF\n");
-    printf("ACT = %d\n", act->sa_flags);
-    getcontext(context);
-    act->sa_sigaction(sig, siginfo, context);
-    printf("POSTPOSTPOSTPLOUF\n");
-    //my_printf("PID = %d\n", siginfo.si_pid);
-    free(siginfo);
-    free(context);
-    free(act);
+    my_printf("%d\n", pid);
+}
+
+void catch_sig(int sig)
+{
+    struct sigaction act;
+
+    act.sa_sigaction = &get_pid;
+    act.sa_flags = SA_SIGINFO;
+    sigaction(sig, &act, NULL);
 }
 
 void who_sig_me(int ac, char **av)
