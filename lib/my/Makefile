@@ -13,7 +13,7 @@ TEAL =		"\033[1;36m"
 ORANGE =	"\e[1;33m"
 RED =		"\033[0;31m"
 BRED =		"\033[1;31m"
-FLASH = 	"\e[5;30m"
+FLASH =		"\e[5;30m"
 BYELLOW =	"\e[1;33m"
 BMAGENTA =	"\e[1;35m"
 
@@ -60,7 +60,8 @@ SRC	=	my_compute_power_rec.c \
 		my_strncpy.c \
 		my_strstr.c \
 		my_strupcase.c \
-		my_swap.c
+		my_swap.c	\
+		get_next_line.c
 
 OBJ	=	$(SRC:.c=.o)
 

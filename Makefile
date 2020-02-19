@@ -6,7 +6,7 @@
 ##
 
 ECHO =		/bin/echo -e
-CURL = 		/bin/curl
+CURL =		/bin/curl
 ONLINE =	/bin/nm-online
 DEFAULT =	"\033[00m"
 GREEN =		"\033[0;32m"
@@ -15,7 +15,7 @@ TEAL =		"\033[1;36m"
 ORANGE =	"\e[1;33m"
 RED =		"\033[0;31m"
 BRED =		"\033[1;31m"
-FLASH = 	"\e[5;30m"
+FLASH =		"\e[5;30m"
 BYELLOW =	"\e[1;33m"
 BMAGENTA =	"\e[1;35m"
 
@@ -25,7 +25,11 @@ CC	= gcc
 
 RM	= rm -f
 
-SRCS	=	src/main.c
+SRCS	=	src/main.c		\
+		src/players_actions.c	\
+		src/signal.c		\
+		src/check_and_get_map.c	\
+		src/tools.c
 
 OBJS	= $(SRCS:.c=.o)
 
@@ -34,6 +38,7 @@ LIB = lib/libmy.a
 CFLAGS = -I ./include/
 CFLAGS += -Wall -Wextra
 CFLAGS += -L./lib -lmy
+CFLAGS += -g
 
 all: $(NAME)
 
