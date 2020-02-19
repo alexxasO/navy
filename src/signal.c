@@ -7,7 +7,7 @@
 
 #include "navy.h"
 
-void answer_player_two(int sig, siginfo_t *siginfo, void *context)
+void answer_player_two(int sig, siginfo_t *siginfo, UNUSED void *context)
 {
     if (sig == SIGUSR2) {
         SIGNAL[1]++;
@@ -17,13 +17,14 @@ void answer_player_two(int sig, siginfo_t *siginfo, void *context)
 
 void handle_signal(int sig, siginfo_t *siginfo, UNUSED void *context)
 {
-    static int boolean = 0;
+    static int step = 0;
 
-    if (boolean == 0 && sig == SIGUSR2)
-        boolean = 1;
-    if (boolean == 1 && sig == SIGUSR1) {
-        boolean = 0;
+    if (step == 0 && sig == SIGUSR2)
+        step = 1;
+    else if (step == 1 && sig == SIGUSR1) {
+        step = 2;
         SIGNAL[2] = 1;
+        return;
     }
     if (sig == SIGUSR1)
         SIGNAL[0]++;
