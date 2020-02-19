@@ -24,8 +24,8 @@ int player_one_actions(char **av, int **my_map, int **enemy_map)
 
     my_map = check_and_get_the_map(av[1]);
     player_one_connection();
-    while (end == 0) {
-        //PRINT MAP
+    while (end == -1) {
+        print_global_map(my_map, enemy_map);
         //ATTACK
         //CHECK_END
         //WAIT ENEMY ATTACK
@@ -49,7 +49,7 @@ int player_two_actions(char **av, int **my_map, int **enemy_map)
     int end = -1;
 
     my_map = check_and_get_the_map(av[2]);
-    if (is_str_num(av[0]) == -1) {
+    if (is_str_num(av[1]) == -1) {
         write(2, "The first argument is not a number\n", 35);
         return 84;
     }

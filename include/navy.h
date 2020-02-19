@@ -34,5 +34,6 @@ int is_char_right_upper(char c);
 
 void print_playermap(int **player_tab);
 void print_ennemymap(int **ennemy_tab);
+void print_global_map(int **player_tab, int **ennemy_tab);
 
 #endif
