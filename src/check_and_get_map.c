@@ -7,7 +7,7 @@
 
 #include "navy.h"
 
-static int **fulfill_with_zero(void)
+int **fulfill_with_zero(void)
 {
     int **map = malloc(sizeof(int *) * 8);
 
@@ -20,7 +20,7 @@ static int **fulfill_with_zero(void)
     return map;
 }
 
-int check_line(char *buf)
+static int check_line(char *buf)
 {
     int value = 0;
 
@@ -44,7 +44,7 @@ int check_line(char *buf)
     return 1;
 }
 
-void replace_value_in_map(int **my_map, int x, int y, int value)
+static void replace_value_in_map(int **my_map, int x, int y, int value)
 {
     if (my_map[x][y] != 0) {
         my_map[0][0] = 84;
@@ -53,7 +53,7 @@ void replace_value_in_map(int **my_map, int x, int y, int value)
         my_map[x][y] = value;
 }
 
-void add_boat_in_map(int **my_map, char *buf)
+static void add_boat_in_map(int **my_map, char *buf)
 {
     if (buf[2] != buf[5]) {
         for (int i = buf[2] - 65; i <= buf[5] - 65; i++) {
