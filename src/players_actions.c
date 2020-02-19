@@ -7,6 +7,15 @@
 
 #include "navy.h"
 
+static int print_end_message(int end)
+{
+    if (end == 0)
+        my_putstr("I won\n");
+    else if (end == 1)
+        my_putstr("Enemy won\n");
+    return end;
+}
+
 static void player_one_connection(void)
 {
     set_sigaction(0);
@@ -23,15 +32,18 @@ int player_one_actions(char **av, int **my_map, int **enemy_map)
     int end = -1;
 
     my_map = check_and_get_the_map(av[1]);
+    if (my_map[0][0] == 84)
+        return 84;
     player_one_connection();
     while (end == -1) {
         print_global_map(my_map, enemy_map);
-        //ATTACK
-        //CHECK_END
-        //WAIT ENEMY ATTACK
-        //CHECK END
+        print_global_map(my_map, enemy_map);
+        end = handle_outgoing_attack(enemy_map);
+        if (end != -1)
+            break;
+        end = handle_incoming_attack(my_map);
     }
-    return 0;
+    return print_end_message(end);
 }
 
 static void player_two_connection(char **av)
@@ -53,14 +65,16 @@ int player_two_actions(char **av, int **my_map, int **enemy_map)
         write(2, "The first argument is not a number\n", 35);
         return 84;
     }
+    if (my_map[0][0] == 84)
+        return 84;
     SIGNAL[3] = my_getnbr(av[1]);
     player_two_connection(av);
     while (end == -1) {
-        //PRINT MAP
-        //WAIT ENEMY ATTACK
-        //CHECK_END
-        //ATTACK
-        //CHECK END
+        print_global_map(my_map, enemy_map);
+        end = handle_incoming_attack(my_map);
+        if (end != -1)
+            break;
+        end = handle_outgoing_attack(enemy_map);
     }
-    return 0;
+    return print_end_message(end);
 }
