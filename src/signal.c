@@ -15,7 +15,7 @@ void answer_player_two(int sig, siginfo_t *siginfo, void *context)
     }
 }
 
-void handle_signal(int sig, siginfo_t *siginfo, void *context)
+void handle_signal(int sig, siginfo_t *siginfo, UNUSED void *context)
 {
     static int boolean = 0;
 

@@ -11,6 +11,8 @@
 #include "my_printf.h"
 #include "get_next_line.h"
 
+#define UNUSED __attribute__((unused))
+
 void my_putchar(char c);
 int my_putstr(char const *str);
 int my_putnstr(char const *str, int n);
