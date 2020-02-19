@@ -18,7 +18,7 @@ void put_usage(void)
 int main(int ac, char **av)
 {
     int return_value = 0;
-    int **my_map;
+    int **my_map = NULL;
     int **enemy_map = fulfill_with_zero();
 
     if (ac == 2 && my_strcmp(av[1], "-h") == 0) {
