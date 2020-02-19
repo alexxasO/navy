@@ -16,7 +16,7 @@ void answer_player_two(int sig, siginfo_t *siginfo, UNUSED void *context)
     }
 }
 
-void handle_result_signal(int step)
+void handle_result_signal(int step, int sig)
 {
     if (step == 2 || step == 0) {
         if (sig == SIGUSR1)
@@ -47,7 +47,7 @@ void handle_signal_player2(int sig, siginfo_t *siginfo, UNUSED void *context)
         return;
     }
     if (step == 2 || step == 3)
-        handle_result_signal(step);
+        handle_result_signal(step, sig);
     if (sig == SIGUSR1)
         SIGNAL[0]++;
     else if (sig == SIGUSR2)
@@ -61,7 +61,7 @@ void handle_signal_player1(int sig, siginfo_t *siginfo, UNUSED void *context)
     if (SIGNAL[3] != siginfo->si_pid)
         return;
     if (step == 0 || step == 1)
-        handle_result_signal(step);
+        handle_result_signal(step, sig);
     if (step == 2 && sig == SIGUSR2)
         step = 3;
     else if (step == 3 && sig == SIGUSR1) {
