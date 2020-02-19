@@ -37,6 +37,8 @@ void handle_signal_player2(int sig, siginfo_t *siginfo, UNUSED void *context)
 {
     static int step = 0;
 
+    if (SIGNAL[3] != siginfo->si_pid)
+        return;
     if (step == 0 && sig == SIGUSR2)
         step = 1;
     else if (step == 1 && sig == SIGUSR1) {
@@ -56,6 +58,8 @@ void handle_signal_player1(int sig, siginfo_t *siginfo, UNUSED void *context)
 {
     static int step = 0;
 
+    if (SIGNAL[3] != siginfo->si_pid)
+        return;
     if (step == 0 || step == 1)
         handle_result_signal(step);
     if (step == 2 && sig == SIGUSR2)
