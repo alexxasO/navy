@@ -53,6 +53,7 @@ int player_two_actions(char **av, int **my_map, int **enemy_map)
         write(2, "The first argument is not a number\n", 35);
         return 84;
     }
+    SIGNAL[3] = my_getnbr(av[1]);
     player_two_connection(av);
     while (end == -1) {
         //PRINT MAP

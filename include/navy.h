@@ -16,7 +16,7 @@
 
 #define ABS(value) (((value) < (0)) ? (-value) : (value))
 
-int SIGNAL[3];
+int SIGNAL[4];
 
 int player_one_actions(char **av, int **my_map, int **enemy_map);
 int player_two_actions(char **av, int **my_map, int **enemy_map);

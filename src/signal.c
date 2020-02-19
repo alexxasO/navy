@@ -12,6 +12,7 @@ void answer_player_two(int sig, siginfo_t *siginfo, UNUSED void *context)
     if (sig == SIGUSR2) {
         SIGNAL[1]++;
         kill(siginfo->si_pid, SIGUSR1);
+        SIGNAL[3] = siginfo->si_pid;
     }
 }
 
