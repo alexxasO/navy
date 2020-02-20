@@ -38,9 +38,11 @@ int player_one_actions(char **av, int **my_map, int **enemy_map)
     while (end == -1) {
         print_global_map(my_map, enemy_map);
         end = handle_outgoing_attack(enemy_map);
+        SIGNAL[2] = 0;
         if (end != -1)
             break;
         end = handle_incoming_attack(my_map);
+        printf("END = %d\n", end);
     }
     return print_end_message(end);
 }
@@ -74,6 +76,8 @@ int player_two_actions(char **av, int **my_map, int **enemy_map)
         if (end != -1)
             break;
         end = handle_outgoing_attack(enemy_map);
+        SIGNAL[2] = 0;
+        printf("END = %d\n", end);
     }
     return print_end_message(end);
 }
