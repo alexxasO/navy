@@ -23,7 +23,7 @@ int handle_incoming_attack(int **my_map)
     for (int i = 0; i < 8; i++) {
         if (my_map[j][i] > 0) {
             kill(SIGNAL[3], SIGUSR1);
-            return;
+            return -1;
         }
         if (i == 7 && j != 7) {
             j++;
@@ -31,6 +31,7 @@ int handle_incoming_attack(int **my_map)
         }
     }
     kill(SIGNAL[3], SIGUSR2);
+    return 0;
 }
 
 static int check_attack_args(char *str, int readsize)
@@ -55,6 +56,7 @@ static void send_sig(int line, int col)
         kill(SIGNAL[3], SIGUSR1);
     for (int i = 0; i <= col; i++)
         kill(SIGNAL[3], SIGUSR2);
+    kill(SIGNAL[3], SIGUSR1);
 }
 
 int handle_outgoing_attack(int **enemy_map)

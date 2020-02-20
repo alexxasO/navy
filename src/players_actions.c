@@ -37,7 +37,6 @@ int player_one_actions(char **av, int **my_map, int **enemy_map)
     player_one_connection();
     while (end == -1) {
         print_global_map(my_map, enemy_map);
-        print_global_map(my_map, enemy_map);
         end = handle_outgoing_attack(enemy_map);
         if (end != -1)
             break;

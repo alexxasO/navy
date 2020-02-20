@@ -26,9 +26,9 @@ void handle_result_signal(int step, int sig)
         step++;
     } else if (step == 3 || step == 1) {
         if (sig == SIGUSR1)
-            SIGNAL[2] *= 3;
+            SIGNAL[2] = SIGNAL[2] * 3;
         else if(sig == SIGUSR2)
-            SIGNAL[2] *= 4;
+            SIGNAL[2] = SIGNAL[2] * 4;
         step = (step + 1) % 4;
     }
 }
