@@ -51,9 +51,9 @@ static int check_attack_args(char *str, int readsize)
 
 static void send_sig(int line, int col)
 {
-    for (int i = 0; i < line; i++)
+    for (int i = 0; i <= line; i++)
         kill(SIGNAL[3], SIGUSR1);
-    for (int i = 0; i < col; i++)
+    for (int i = 0; i <= col; i++)
         kill(SIGNAL[3], SIGUSR2);
 }
 
