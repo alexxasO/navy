@@ -24,14 +24,12 @@ void handle_result_signal(int *step, int sig)
         else if(sig == SIGUSR2)
             SIGNAL[2] = 2;
         (*step)++;
-        printf("STEP === %d\n", *step);
     } else if (*step == 3 || *step == 1) {
         if (sig == SIGUSR1)
             SIGNAL[2] = SIGNAL[2] * 3;
         else if(sig == SIGUSR2)
             SIGNAL[2] = SIGNAL[2] * 4;
         *step = ((*step) + 1) % 4;
-        printf("STEP ====== %d\n", *step);
     }
 }
 
@@ -39,14 +37,11 @@ void handle_signal_player2(int sig, siginfo_t *siginfo, UNUSED void *context)
 {
     static int step = 0;
 
-    printf("SIG = %d && STEP = %d\n", sig, step);
     if (SIGNAL[3] != siginfo->si_pid)
         return;
     if (step == 0 && sig == SIGUSR2) {
         step = 1;
-        printf("STEP 1\n");
     } else if (step == 1 && sig == SIGUSR1) {
-        printf("STEP 2\n");
         step = 2;
         SIGNAL[2] = -1;
         return;
@@ -63,16 +58,13 @@ void handle_signal_player1(int sig, siginfo_t *siginfo, UNUSED void *context)
 {
     static int step = 0;
 
-    printf("SIG = %d && STEP = %d\n", sig, step);
     if (SIGNAL[3] != siginfo->si_pid)
         return;
     if (step == 0 || step == 1)
         handle_result_signal(&step, sig);
     if (step == 2 && sig == SIGUSR2) {
         step = 3;
-        printf("STEP 3\n");
     } else if (step == 3 && sig == SIGUSR1) {
-        printf("STEP 0\n");
         step = 0;
         SIGNAL[2] = -1;
         return;

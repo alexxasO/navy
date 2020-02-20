@@ -10,9 +10,9 @@
 static char get_missed_or_touched_char(int id)
 {
     if (id == -1)
-        return 'o';
-    if (id == -2)
         return 'x';
+    if (id == -2)
+        return 'o';
     return '*';
 }
 
@@ -23,7 +23,7 @@ static char *get_player_line(int *player_line)
     int i = 0;
 
     for (; i < 16; i++) {
-        if (i % 2 == 0) {
+        if (i % 2 != 0) {
             str[i] = ' ';
             continue;
         }
@@ -46,16 +46,16 @@ static char *get_ennemy_line(int *player_line)
     int i = 0;
 
     for (; i < 16; i++) {
-        if (i % 2 == 0) {
+        if (i % 2 != 0) {
             str[i] = ' ';
             continue;
         }
         if (player_line[pos] == 0)
             str[i] = '.';
         if (player_line[pos] == 1)
-            str[i] = 'o';
-        if (player_line[pos] == 2)
             str[i] = 'x';
+        if (player_line[pos] == 2)
+            str[i] = 'o';
         pos++;
     }
     str[i] = '\0';

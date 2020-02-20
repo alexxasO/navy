@@ -11,21 +11,16 @@ int handle_incoming_attack(int **my_map)
 {
     int j = 0;
 
-    printf("PRESLEEP DEFENSE\n");
-    printf("BEFORE 0 = %d && 1 = %d\n", SIGNAL[0], SIGNAL[1]);
     SIGNAL[0] = 0;
     SIGNAL[1] = 0;
     while (SIGNAL[2] == 0)
         usleep(1);
-    printf("0 = %d && 1 = %d\n", SIGNAL[0], SIGNAL[1]);
     if (my_map[SIGNAL[0] - 1][SIGNAL[1] - 1] == 0) {
         my_map[SIGNAL[0] - 1][SIGNAL[1] - 1] = -2;
         kill(SIGNAL[3], SIGUSR2);
-        printf("SEND SIGUSR2\n");
     } else {
         my_map[SIGNAL[0] - 1][SIGNAL[1] - 1] = -1;
         kill(SIGNAL[3], SIGUSR1);
-        printf("SEND SIGUSR1\n");
     }
     SIGNAL[0] = 0;
     SIGNAL[1] = 0;
@@ -33,7 +28,6 @@ int handle_incoming_attack(int **my_map)
     for (int i = 0; i < 8; i++) {
         if (my_map[j][i] > 0) {
             kill(SIGNAL[3], SIGUSR1);
-            printf("SEND SIGUSR1\n");
             return -1;
         }
         if (i == 7 && j != 7) {
@@ -42,7 +36,6 @@ int handle_incoming_attack(int **my_map)
         }
     }
     kill(SIGNAL[3], SIGUSR2);
-    printf("SEND SIGUSR2\n");
     return 0;
 }
 
@@ -73,7 +66,6 @@ static void send_sig(int line, int col)
         usleep(10000);
     }
     kill(SIGNAL[3], SIGUSR1);
-    printf("SEND SIGUSR1 * %d && SIGUSR2 * %d && SIGUSR1\n", line, col);
 }
 
 int handle_outgoing_attack(int **enemy_map)
@@ -93,11 +85,8 @@ int handle_outgoing_attack(int **enemy_map)
     line = kaboum[1] - '1';
     if (enemy_map[line][col] == 0)
         send_sig(line, col);
-    printf("PRESLEEP REPONSE");
     while (SIGNAL[2] < 3)
         usleep(1);
-    printf("SIGNAL[2] = %d\n", SIGNAL[2]);
-    printf("LINE = %d && COL = %d\n", line, col);
     if (SIGNAL[2] == 3)
         enemy_map[line][col] = 1;
     if (SIGNAL[2] == 6)
