@@ -65,6 +65,7 @@ int handle_outgoing_attack(int **enemy_map)
     int readsize = 0;
 
     while (error) {
+        my_putstr("attack: ");
         readsize = read(0, kaboum, 3);
         error = check_attack_args(kaboum, readsize);
     }
