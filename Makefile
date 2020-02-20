@@ -31,7 +31,8 @@ SRCS	=	src/main.c		\
 		src/check_and_get_map.c	\
 		src/tools.c	\
 		src/print_map.c	\
-		src/print_map_global.c
+		src/print_map_global.c	\
+		src/attack.c
 
 OBJS	= $(SRCS:.c=.o)
 

@@ -7,7 +7,7 @@
 
 #include "navy.h"
 
-void handle_incoming_attack(int **my_map)
+int handle_incoming_attack(int **my_map)
 {
     int j = 0;
 
@@ -37,12 +37,13 @@ static int check_attack_args(char *str, int readsize)
 {
     int count = 0;
 
-    if (readsize == 2)
+    if (readsize == 3)
         count++;
     if (str[0] >= 'A' && str[0] <= 'H')
         count++;
-    if (str[1] >= '1' && str[1 <= '8'])
+    if (str[1] >= '1' && str[1] <= '8')
         count++;
+    my_printf("count : %d\n", count);
     if (count == 3)
         return 0;
     return 1;
@@ -66,7 +67,7 @@ int handle_outgoing_attack(int **enemy_map)
 
     while (error) {
         my_putstr("attack: ");
-        readsize = read(0, kaboum, 3);
+        readsize = read(0, kaboum, 5);
         error = check_attack_args(kaboum, readsize);
     }
     col = kaboum[0] - 'A';
