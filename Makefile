@@ -72,7 +72,7 @@ debug: re
 
 binary_name:
 	@$(ECHO) $(TEAL)
-	@$(ONLINE) -q -t 2 && \
+	@$(ONLINE) -q -t 2 -x && \
 	$(CURL) http://artii.herokuapp.com/make?text=$(NAME) \
 	|| $(ECHO) -n $(TEAL) Building $(NAME)...
 	@$(ECHO) '\n'

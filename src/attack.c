@@ -13,6 +13,7 @@ int handle_incoming_attack(int **my_map)
 
     SIGNAL[0] = 0;
     SIGNAL[1] = 0;
+    my_putstr("\nwaiting for ennemy's attack...\n");
     while (SIGNAL[2] == 0)
         usleep(1);
     if (my_map[SIGNAL[0] - 1][SIGNAL[1] - 1] == 0) {
@@ -49,9 +50,9 @@ static int check_attack_args(char *str, int readsize)
         count++;
     if (str[1] >= '1' && str[1] <= '8')
         count++;
-    my_printf("count : %d\n", count);
     if (count == 3)
         return 0;
+    my_putstr("wrong position\n");
     return 1;
 }
 
@@ -83,16 +84,22 @@ int handle_outgoing_attack(int **enemy_map)
     }
     col = kaboum[0] - 'A';
     line = kaboum[1] - '1';
+    kaboum[2] = '\0';
     if (enemy_map[line][col] == 0)
         send_sig(line, col);
     while (SIGNAL[2] < 3)
         usleep(1);
-    if (SIGNAL[2] == 3)
+    if (SIGNAL[2] == 3) {
         enemy_map[line][col] = 1;
-    if (SIGNAL[2] == 6)
+        my_printf("\n%s: hit\n", kaboum);
+    }
+    if (SIGNAL[2] == 6) {
         enemy_map[line][col] = 2;
+        my_printf("\n%s: missed\n", kaboum);
+    }
     if (SIGNAL[2] == 8) {
-        enemy_map[line][col] = 2;
+        enemy_map[line][col] = 1;
+        my_printf("\n%s: hit\n", kaboum);
         return 1;
     }
     return -1;
