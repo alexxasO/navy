@@ -7,8 +7,9 @@
 
 #include "navy.h"
 
-static int print_end_message(int end)
+static int print_end_message(int end, int **my_map, int **enemy_map)
 {
+    print_global_map(my_map, enemy_map);
     if (end == 0)
         my_putstr("I won\n");
     else if (end == 1)
@@ -43,7 +44,8 @@ int player_one_actions(char **av, int **my_map, int **enemy_map)
             break;
         end = handle_incoming_attack(my_map);
     }
-    return print_end_message(end);
+    my_putchar('\n');
+    return print_end_message(end, my_map, enemy_map);
 }
 
 static void player_two_connection(char **av)
@@ -75,7 +77,8 @@ int player_two_actions(char **av, int **my_map, int **enemy_map)
         if (end != -1)
             break;
         end = handle_outgoing_attack(enemy_map);
+        my_putchar('\n');
         SIGNAL[2] = 0;
     }
-    return print_end_message(end);
+    return print_end_message(end, my_map, enemy_map);
 }

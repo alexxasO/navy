@@ -60,7 +60,7 @@ static void add_boat_in_map(int **my_map, char *buf)
             replace_value_in_map(my_map, buf[3] - 49, i, buf[0] - 48);
         }
     } else if (buf[3] != buf[6]) {
-        for(int i = buf[3] - 49; i < buf[6] - 48; i++) {
+        for (int i = buf[3] - 49; i < buf[6] - 48; i++) {
             replace_value_in_map(my_map, i, buf[2] - 65, buf[0] - 48);
         }
     }

@@ -29,9 +29,8 @@ int main(int ac, char **av)
         write(2, "Wrong number of arguments\n", 26);
         return 84;
     }
-    SIGNAL[0] = 0;
-    SIGNAL[1] = 0;
-    SIGNAL[2] = 0;
+    for (int i = 0; i < 3; i++)
+        SIGNAL[i] = 0;
     my_printf("my_pid: %d\n", getpid());
     if (ac == 2)
         return_value = player_one_actions(av, my_map, enemy_map);
