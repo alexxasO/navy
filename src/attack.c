@@ -72,6 +72,26 @@ static void send_sig(int line, int col)
     kill(SIGNAL[3], SIGUSR1);
 }
 
+int receive_response_outgoing(int **enemy_map, char *kaboum, int line, int col)
+{
+    while (SIGNAL[2] < 3)
+        usleep(1);
+    if (SIGNAL[2] == 3) {
+        enemy_map[line][col] = 1;
+        my_printf("%s: hit\n", kaboum);
+    }
+    if (SIGNAL[2] == 6) {
+        enemy_map[line][col] = 2;
+        my_printf("%s: missed\n", kaboum);
+    }
+    if (SIGNAL[2] == 4) {
+        enemy_map[line][col] = 1;
+        my_printf("%s: hit\n", kaboum);
+        return 0;
+    }
+    return -1;
+}
+
 int handle_outgoing_attack(int **enemy_map)
 {
     int col = 0;
@@ -95,22 +115,6 @@ int handle_outgoing_attack(int **enemy_map)
         }
     }
     kaboum[2] = '\0';
-    if (enemy_map[line][col] == 0)
-        send_sig(line, col);
-    while (SIGNAL[2] < 3)
-        usleep(1);
-    if (SIGNAL[2] == 3) {
-        enemy_map[line][col] = 1;
-        my_printf("%s: hit\n", kaboum);
-    }
-    if (SIGNAL[2] == 6) {
-        enemy_map[line][col] = 2;
-        my_printf("%s: missed\n", kaboum);
-    }
-    if (SIGNAL[2] == 4) {
-        enemy_map[line][col] = 1;
-        my_printf("%s: hit\n", kaboum);
-        return 0;
-    }
-    return -1;
+    send_sig(line, col);
+    return receive_response_outgoing(enemy_map, kaboum, line, col);
 }
