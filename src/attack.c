@@ -45,7 +45,7 @@ int handle_incoming_attack(int **my_map)
     return 1;
 }
 
-static int check_attack_args(char *str, int readsize)
+static int check_attack_args(char *str, int readsize, int **enemy_map)
 {
     int count = 0;
 
@@ -55,7 +55,9 @@ static int check_attack_args(char *str, int readsize)
         count++;
     if (str[1] >= '1' && str[1] <= '8')
         count++;
-    if (count == 3)
+    if (enemy_map[str[1] - '1'][str[0] - 'A'] == 0)
+        count++;
+    if (count == 4)
         return 0;
     my_putstr("wrong position\n");
     return 1;
@@ -109,17 +111,10 @@ int handle_outgoing_attack(int **enemy_map)
             kill(SIGNAL[3], SIGUSR2);
             return -84;
         }
-        error = check_attack_args(kaboum, readsize);
-
-        if (error == 0) {
-            col = kaboum[0] - 'A';
-            line = kaboum[1] - '1';
-        }
-        if (enemy_map[line][col] != 0) {
-            error = 1;
-            my_putstr("wrong position\n");
-        }
+        error = check_attack_args(kaboum, readsize, enemy_map);
     }
+    col = kaboum[0] - 'A';
+    line = kaboum[1] - '1';
     kaboum[2] = '\0';
     send_sig(line, col);
     return receive_response_outgoing(enemy_map, kaboum, line, col);
