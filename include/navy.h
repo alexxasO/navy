@@ -20,6 +20,7 @@ int SIGNAL[4];
 
 int player_one_actions(char **av, int **my_map, int **enemy_map);
 int player_two_actions(char **av, int **my_map, int **enemy_map);
+int print_end_message(int end, int **my_map, int **enemy_map);
 
 void answer_player_two(int sig, siginfo_t *siginfo, void *context);
 void handle_signal(int sig, siginfo_t *siginfo, void *context);
