@@ -43,6 +43,8 @@ int player_one_actions(char **av, int **my_map, int **enemy_map)
         if (end != -1)
             break;
         end = handle_incoming_attack(my_map);
+        if (end == -84)
+            return -end;
     }
     my_putchar('\n');
     return print_end_message(end, my_map, enemy_map);
@@ -77,6 +79,8 @@ int player_two_actions(char **av, int **my_map, int **enemy_map)
         if (end != -1)
             break;
         end = handle_outgoing_attack(enemy_map);
+        if (end == -84)
+            return -end;
         my_putchar('\n');
         SIGNAL[2] = 0;
     }

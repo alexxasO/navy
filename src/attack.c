@@ -16,6 +16,8 @@ int handle_incoming_attack(int **my_map)
     my_putstr("\nwaiting for ennemy's attack...\n");
     while (SIGNAL[2] == 0)
         usleep(1);
+    if (SIGNAL[2] == -2)
+        return -84;
     my_printf("%c%c: ", SIGNAL[1] + 64, SIGNAL[0] + 48);
     if (my_map[SIGNAL[0] - 1][SIGNAL[1] - 1] == 0) {
         my_map[SIGNAL[0] - 1][SIGNAL[1] - 1] = -2;
@@ -103,6 +105,10 @@ int handle_outgoing_attack(int **enemy_map)
     while (error) {
         my_putstr("attack: ");
         readsize = read(0, kaboum, 5);
+        if (readsize == 0) {
+            kill(SIGNAL[3], SIGUSR2);
+            return -84;
+        }
         error = check_attack_args(kaboum, readsize);
 
         if (error == 0) {
