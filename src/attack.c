@@ -7,44 +7,6 @@
 
 #include "navy.h"
 
-int handle_incoming_attack(int **my_map)
-{
-    int j = 0;
-
-    SIGNAL[0] = 0;
-    SIGNAL[1] = 0;
-    my_putstr("\nwaiting for ennemy's attack...\n");
-    while (SIGNAL[2] == 0)
-        usleep(1);
-    if (SIGNAL[2] == -2)
-        return -84;
-    my_printf("%c%c: ", SIGNAL[1] + 64, SIGNAL[0] + 48);
-    if (my_map[SIGNAL[0] - 1][SIGNAL[1] - 1] == 0) {
-        my_map[SIGNAL[0] - 1][SIGNAL[1] - 1] = -2;
-        kill(SIGNAL[3], SIGUSR2);
-        my_putstr("missed\n\n");
-    } else {
-        my_map[SIGNAL[0] - 1][SIGNAL[1] - 1] = -1;
-        kill(SIGNAL[3], SIGUSR1);
-        my_putstr("hit\n\n");
-    }
-    SIGNAL[0] = 0;
-    SIGNAL[1] = 0;
-    usleep(100);
-    for (int i = 0; i < 8; i++) {
-        if (my_map[j][i] > 0) {
-            kill(SIGNAL[3], SIGUSR1);
-            return -1;
-        }
-        if (i == 7 && j != 7) {
-            j++;
-            i = -1;
-        }
-    }
-    kill(SIGNAL[3], SIGUSR2);
-    return 1;
-}
-
 static int check_attack_args(char *str, int readsize, int **enemy_map)
 {
     int count = 0;

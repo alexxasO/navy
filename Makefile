@@ -25,15 +25,16 @@ CC	= gcc
 
 RM	= rm -f
 
-SRCS	=	src/main.c		\
-		src/signal.c		\
-		src/check_and_get_map.c	\
-		src/tools.c	\
-		src/print_map.c	\
-		src/print_map_global.c	\
-		src/attack.c	\
+SRCS	=	src/main.c			\
+		src/signal.c			\
+		src/check_and_get_map.c		\
+		src/tools.c			\
+		src/print_map.c			\
+		src/print_map_global.c		\
+		src/attack.c			\
 		src/player_two_actions.c	\
-		src/player_one_actions.c
+		src/player_one_actions.c	\
+		src/defense.c
 
 OBJS	= $(SRCS:.c=.o)
 

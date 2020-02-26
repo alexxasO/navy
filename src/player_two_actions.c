@@ -41,9 +41,7 @@ int player_two_actions(char **av, int **my_map, int **enemy_map)
     int end = -1;
 
     my_map = check_and_get_the_map(av[2]);
-    if(check_args_two(av[1]) == 84)
-        return 84;
-    if (my_map[0][0] == 84)
+    if (check_args_two(av[1]) == 84 || my_map[0][0] == 84)
         return 84;
     SIGNAL[3] = my_getnbr(av[1]);
     player_two_connection(av);
