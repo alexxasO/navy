@@ -25,8 +25,10 @@ static int check_attack_args(char *str, int readsize, int **enemy_map)
     return 1;
 }
 
-static void send_sig(int line, int col)
+static int send_sig(int line, int col)
 {
+    int status = 0;
+
     for (int i = 0; i <= line; i++) {
         kill(SIGNAL[3], SIGUSR1);
         usleep(10000);
@@ -35,7 +37,8 @@ static void send_sig(int line, int col)
         kill(SIGNAL[3], SIGUSR2);
         usleep(10000);
     }
-    kill(SIGNAL[3], SIGUSR1);
+    status = kill(SIGNAL[3], SIGUSR1);
+    return status;
 }
 
 int receive_response_outgoing(int **enemy_map, char *kaboum, int line, int col)
@@ -78,6 +81,7 @@ int handle_outgoing_attack(int **enemy_map)
     col = kaboum[0] - 'A';
     line = kaboum[1] - '1';
     kaboum[2] = '\0';
-    send_sig(line, col);
+    if (send_sig(line, col))
+        return 0;
     return receive_response_outgoing(enemy_map, kaboum, line, col);
 }
