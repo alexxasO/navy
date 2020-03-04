@@ -7,7 +7,7 @@
 
 #include "navy.h"
 
-static int check_attack_args(char *str, int readsize, int **enemy_map)
+static int check_attack_args(char *str, int readsize)
 {
     int count = 0;
 
@@ -74,7 +74,7 @@ int handle_outgoing_attack(int **enemy_map)
             kill(SIGNAL[3], SIGUSR2);
             return -84;
         }
-        error = check_attack_args(kaboum, readsize, enemy_map);
+        error = check_attack_args(kaboum, readsize);
     }
     col = kaboum[0] - 'A';
     line = kaboum[1] - '1';
