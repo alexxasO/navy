@@ -34,7 +34,7 @@ static void reset_signal_value(void)
 int handle_incoming_attack(int **my_map)
 {
     reset_signal_value();
-    my_putstr("\nwaiting for ennemy's attack...\n");
+    my_putstr("\nwaiting for enemy's attack...\n");
     while (SIGNAL[2] == 0)
         usleep(1);
     if (SIGNAL[2] == -2)
