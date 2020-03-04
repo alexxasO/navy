@@ -40,7 +40,7 @@ int handle_incoming_attack(int **my_map)
     if (SIGNAL[2] == -2)
         return -84;
     my_printf("%c%c: ", SIGNAL[1] + 64, SIGNAL[0] + 48);
-    if (my_map[SIGNAL[0] - 1][SIGNAL[1] - 1] == 0) {
+    if (my_map[SIGNAL[0] - 1][SIGNAL[1] - 1] <= 0) {
         my_map[SIGNAL[0] - 1][SIGNAL[1] - 1] = -2;
         kill(SIGNAL[3], SIGUSR2);
         my_putstr("missed\n\n");
