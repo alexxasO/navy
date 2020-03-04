@@ -17,9 +17,7 @@ static int check_attack_args(char *str, int readsize, int **enemy_map)
         count++;
     if (str[1] >= '1' && str[1] <= '8')
         count++;
-    if (enemy_map[str[1] - '1'][str[0] - 'A'] == 0)
-        count++;
-    if (count == 4)
+    if (count == 3)
         return 0;
     my_putstr("wrong position\n");
     return 1;
