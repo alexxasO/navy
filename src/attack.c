@@ -48,7 +48,8 @@ int receive_response_outgoing(int **enemy_map, char *kaboum, int line, int col)
         my_printf("%s: hit\n", kaboum);
     }
     if (SIGNAL[2] == 6) {
-        enemy_map[line][col] = 2;
+        if (enemy_map[line][col] == 0)
+            enemy_map[line][col] = 2;
         my_printf("%s: missed\n", kaboum);
     }
     if (SIGNAL[2] == 4) {
