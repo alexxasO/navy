@@ -64,7 +64,7 @@ static int **check_boat(int *boat_sum, int **my_map)
             size++;
             i = -1;
         }
-        if (size == 5)
+        if (size == 6)
             break;
     }
     return my_map;
