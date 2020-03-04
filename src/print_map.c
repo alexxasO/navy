@@ -22,7 +22,7 @@ static char *get_player_line(int *player_line)
     int pos = 0;
     int i = 0;
 
-    for (; i < 16; i++) {
+    for (; i < 15; i++) {
         if (i % 2 != 0) {
             str[i] = ' ';
             continue;
@@ -45,7 +45,7 @@ static char *get_ennemy_line(int *player_line)
     int pos = 0;
     int i = 0;
 
-    for (; i < 16; i++) {
+    for (; i < 15; i++) {
         if (i % 2 != 0) {
             str[i] = ' ';
             continue;
