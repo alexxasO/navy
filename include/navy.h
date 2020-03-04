@@ -32,6 +32,7 @@ int **fulfill_with_zero(void);
 int is_str_num(char *str);
 int is_char_right_num(char c);
 int is_char_right_upper(char c);
+int **return_error(char *msg, int **my_map);
 
 void print_playermap(int **player_tab);
 void print_ennemymap(int **ennemy_tab);

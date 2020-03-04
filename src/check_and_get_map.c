@@ -7,19 +7,6 @@
 
 #include "navy.h"
 
-int **fulfill_with_zero(void)
-{
-    int **map = malloc(sizeof(int *) * 8);
-
-    for (int i = 0; i < 8; i++) {
-        map[i] = malloc(sizeof(int) * 8);
-        for (int j = 0; j < 8; j++) {
-            map[i][j] = 0;
-        }
-    }
-    return map;
-}
-
 static int check_line(char *buf)
 {
     int value = 0;
@@ -66,26 +53,40 @@ static void add_boat_in_map(int **my_map, char *buf)
     }
 }
 
+static int **check_boat(int *boat_sum, int **my_map)
+{
+    int size = 2;
+
+    for (int i = 0; i < 4; i++) {
+        if (boat_sum[i] != size && i == 3)
+            return return_error("The file is not correct\n", my_map);
+        else if (boat_sum[i] == size) {
+            size++;
+            i = -1;
+        }
+        if (size == 5)
+            break;
+    }
+    return my_map;
+}
+
 int **check_and_get_the_map(char *pathname)
 {
     int **my_map = fulfill_with_zero();
     char *buf;
     int fd = open(pathname, O_RDONLY);
+    int boat_sum[] = {-1, -1, -1, -1};
+    int i = 0;
 
-    if (fd == -1) {
-        write(2, "The file doesn't exist\n", 23);
-        my_map[0][0] = 84;
-        return my_map;
-    }
+    if (fd == -1)
+        return return_error("The file doesn't exist\n", my_map);
     buf = get_next_line(fd);
     while (buf != NULL) {
-        if (check_line(buf) == -1 || my_map[0][0] == 84) {
-            write(2, "The file is not correct\n", 24);
-            my_map[0][0] = 84;
-            return my_map;
-        }
+        if (check_line(buf) == -1 || my_map[0][0] == 84 || i > 3)
+            return return_error("The file is not correct\n", my_map);
+        boat_sum[i++] = my_getnbr(buf);
         add_boat_in_map(my_map, buf);
         buf = get_next_line(fd);
     }
-    return my_map;
+    return check_boat(boat_sum, my_map);
 }

@@ -29,3 +29,25 @@ int is_char_right_upper(char c)
         return -1;
     return 1;
 }
+
+int **fulfill_with_zero(void)
+{
+    int **map = malloc(sizeof(int *) * 8);
+
+    for (int i = 0; i < 8; i++) {
+        map[i] = malloc(sizeof(int) * 8);
+        for (int j = 0; j < 8; j++) {
+            map[i][j] = 0;
+        }
+    }
+    return map;
+}
+
+int **return_error(char *msg, int **my_map)
+{
+    int length = my_strlen(msg);
+
+    write(2, msg, length);
+    my_map[0][0] = 84;
+    return my_map;
+}
