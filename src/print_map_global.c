@@ -11,7 +11,7 @@ void print_global_map(int **player_tab, int **ennemy_tab)
 {
     my_putstr("my positions:\n");
     print_playermap(player_tab);
-    my_putstr("\nennemy's positions:\n");
+    my_putstr("\nenemy's positions:\n");
     print_ennemymap(ennemy_tab);
     my_putstr("\n");
 }
