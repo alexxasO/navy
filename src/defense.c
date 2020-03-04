@@ -45,13 +45,11 @@ int handle_incoming_attack(int **my_map)
     if (my_map[SIGNAL[0] - 1][SIGNAL[1] - 1] <= 0) {
         if (my_map[SIGNAL[0] - 1][SIGNAL[1] - 1] >= 0)
             my_map[SIGNAL[0] - 1][SIGNAL[1] - 1] = -2;
-        usleep(50000);
-        kill(SIGNAL[3], SIGUSR2);
+        wait_and_kill(SIGUSR2);
         my_putstr("missed\n\n");
     } else {
         my_map[SIGNAL[0] - 1][SIGNAL[1] - 1] = -1;
-        usleep(50000);
-        kill(SIGNAL[3], SIGUSR1);
+        wait_and_kill(SIGUSR1);
         my_putstr("hit\n\n");
     }
     reset_signal_value();

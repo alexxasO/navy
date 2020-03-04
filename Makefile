@@ -34,7 +34,8 @@ SRCS	=	src/main.c			\
 		src/attack.c			\
 		src/player_two_actions.c	\
 		src/player_one_actions.c	\
-		src/defense.c
+		src/defense.c	\
+		src/global_function.c
 
 OBJS	= $(SRCS:.c=.o)
 

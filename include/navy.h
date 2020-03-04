@@ -42,4 +42,6 @@ void print_global_map(int **player_tab, int **ennemy_tab);
 int handle_incoming_attack(int **my_map);
 int handle_outgoing_attack(int **enemy_map);
 
+void wait_and_kill(int sig);
+
 #endif
