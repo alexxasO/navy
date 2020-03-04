@@ -19,6 +19,7 @@ int print_end_message(int end, int **my_map, int **enemy_map)
 
 static void player_two_connection(char **av)
 {
+    usleep(50000);
     kill(my_getnbr(av[1]), SIGUSR2);
     set_sigaction(2);
     while (SIGNAL[0] == 0)

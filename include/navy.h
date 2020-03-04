@@ -13,6 +13,7 @@
 #include <signal.h>
 #include <string.h>
 #include <ucontext.h>
+#include <stdio.h>
 
 #define ABS(value) (((value) < (0)) ? (-value) : (value))
 

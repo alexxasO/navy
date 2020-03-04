@@ -36,6 +36,7 @@ int player_one_actions(char **av, int **my_map, int **enemy_map)
         if (end == -84)
             return -end;
     }
-    my_putchar('\n');
+    if (end == 0)
+        my_putchar('\n');
     return print_end_message(end, my_map, enemy_map);
 }

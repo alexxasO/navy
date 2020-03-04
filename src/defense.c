@@ -13,6 +13,7 @@ static int check_if_party_is_ended(int **my_map)
 
     for (int i = 0; i < 8; i++) {
         if (my_map[j][i] > 0) {
+            usleep(50000);
             kill(SIGNAL[3], SIGUSR1);
             return -1;
         }
@@ -21,6 +22,7 @@ static int check_if_party_is_ended(int **my_map)
             i = -1;
         }
     }
+    usleep(50000);
     kill(SIGNAL[3], SIGUSR2);
     return 1;
 }
@@ -43,10 +45,12 @@ int handle_incoming_attack(int **my_map)
     if (my_map[SIGNAL[0] - 1][SIGNAL[1] - 1] <= 0) {
         if (my_map[SIGNAL[0] - 1][SIGNAL[1] - 1] >= 0)
             my_map[SIGNAL[0] - 1][SIGNAL[1] - 1] = -2;
+        usleep(50000);
         kill(SIGNAL[3], SIGUSR2);
         my_putstr("missed\n\n");
     } else {
         my_map[SIGNAL[0] - 1][SIGNAL[1] - 1] = -1;
+        usleep(50000);
         kill(SIGNAL[3], SIGUSR1);
         my_putstr("hit\n\n");
     }
